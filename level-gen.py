@@ -143,7 +143,8 @@ def constructLevel(numRows, numColumns, difficulty):
 
     currRow -= 1
 
-  # >>>> Phase 2 of algorithm: fill any 
+  # >>>> Phase 2 of algorithm: fill any empty arrays (which represent cells that 
+  # couldn't be filled.)
   for row in canvas:
     for col in row:
       if col == []:
