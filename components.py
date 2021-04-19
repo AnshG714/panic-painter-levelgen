@@ -50,6 +50,12 @@ pattern10_e = [
   [[0], [1]]
 ]
 
+easy_color_cats = {
+  1: [pattern5_e, pattern6_e, pattern7_e, pattern8_e, pattern9_e],
+  2: [pattern1_e, pattern2_e, pattern3_e, pattern10_e],
+  3: [],
+  4: [pattern4_e]
+}
 # ------------------------ medium patterns ------------------------------
 
 pattern1_m = [
@@ -105,6 +111,13 @@ pattern10_m = [
   [[0, 1]]
 ]
 
+medium_color_cats = {
+  1: [pattern9_m],
+  2: [pattern1_m, pattern4_m, pattern5_m, pattern10_m],
+  3: [pattern3_m, pattern8_m],
+  4: [pattern2_m, pattern6_m, pattern7_m]
+}
+
 # ------------------------ hard patterns ------------------------------
 
 pattern1_h = [
@@ -137,17 +150,32 @@ pattern6_h = [
   [[0, 1], [-1, 0, -1]]
 ]
 
-easy = [pattern1_e, pattern2_e, pattern3_e, pattern4_e, pattern5_e, pattern6_e,
-        pattern7_e, pattern8_e, pattern9_e, pattern10_e]
+pattern7_h = [
+  [[-1, -1, -1]],
+  [[-1]],
+  [[-1, -1]]
+]
 
-medium = [pattern1_m, pattern2_m, pattern3_m, pattern4_m, pattern5_m, pattern6_m,
-        pattern7_m, pattern8_m, pattern9_m, pattern10_m]
-
-hard = [pattern1_h, pattern2_h, pattern3_h, pattern4_h, pattern5_h, pattern6_h]
-
+hard_color_cats = {
+  1: [pattern3_h, pattern4_h, pattern7_h],
+  2: [pattern6_h],
+  3: [pattern2_h],
+  4: [pattern1_h, pattern5_h]
+}
 
 categories = {
-              'e': easy, 
-              'm': medium, 
-              'h': hard
-             }
+  'e': easy_color_cats,
+  'm': medium_color_cats,
+  'h': hard_color_cats
+}
+
+def getComponentsForDifficulty(difficulty, numColors = 4):
+  assert difficulty in ['e', 'm', 'h'], 'Invalid difficulty level provided.'
+  allComponents = categories[difficulty]
+  final = []
+
+  for key in allComponents:
+    if key <= numColors:
+      final += allComponents[key]
+
+  return final

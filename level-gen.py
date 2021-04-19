@@ -13,11 +13,10 @@
   level difficuly. An easy level can be made harder and vice versa simply by 
   altering the level timer.
 """
-import numpy as np # for easier matrix construction.
 import random
 import math
 
-from components import categories
+from components import getComponentsForDifficulty
 
 def prettyprint(c):
   """A helper function to aid pretty printing
@@ -50,7 +49,7 @@ def assignSubmatrix(mat1, mat2, i, j):
     x2 += 1
   return mat1
 
-def chooseComponent(maxWidth, currRow, maxRows, difficulty):
+def chooseComponent(components, maxWidth, currRow, maxRows, difficulty, numColors):
   """Select a component for a given difficulty, with a maximum width and one that 
   fits within the canvas.
 
@@ -63,7 +62,6 @@ def chooseComponent(maxWidth, currRow, maxRows, difficulty):
   Returns:
       The component to add.
   """
-  components = categories[difficulty]
   candidates = []
   for component in components:
 
@@ -78,9 +76,8 @@ def chooseComponent(maxWidth, currRow, maxRows, difficulty):
   component = random.choice(candidates)
 
   # shuffle colors around to prevent 'zero-overloading'
-  colorMap = [0, 1, 2, 3]
+  colorMap = [i for i in range(numColors)]
   random.shuffle(colorMap)
-
   for row in component:
     for col in row:
       for i in range(len(col)):
@@ -89,8 +86,8 @@ def chooseComponent(maxWidth, currRow, maxRows, difficulty):
 
   return component
 
-def fillRandomEntries(block):
-  colors = [0,1,2,3]
+def fillRandomEntries(block, numColors):
+  colors = [i for i in range(numColors)]
   s = set(colors)
   randomColorPresent = False
   for color in block:
@@ -111,14 +108,13 @@ def fillRandomEntries(block):
     if block[i] == -1:
       block[i] = remainingColors.pop()
 
-def constructLevel(numRows, numColumns, difficulty):
+def constructLevel(numRows, numColumns, difficulty, numColors = 4):
   assert (3 <= numColumns <= 5)
   assert (difficulty in ['e', 'm', 'h'])
 
-  #canvas = np.full((numRows, numColumns), [])
   canvas = [[[] for _ in range(numColumns)] for _ in range(numRows)]
   currRow = numRows - 1
-
+  components = getComponentsForDifficulty(difficulty, numColors)
   # >>>> Phase 1 of Algorithm: Try to fit as much of the grid with the given components as possible
   while currRow >= 0:
     currCol = 0
@@ -134,7 +130,7 @@ def constructLevel(numRows, numColumns, difficulty):
       if maxWidth == 0:
         currCol += 1
       else:
-        randomComponent = chooseComponent(maxWidth, currRow, numRows, difficulty)
+        randomComponent = chooseComponent(components, maxWidth, currRow, numRows, difficulty, numColors)
         if not randomComponent:
           currCol += 1
         else:
@@ -152,15 +148,17 @@ def constructLevel(numRows, numColumns, difficulty):
         if difficulty == 'e':
           col.append(-1)
         elif difficulty == 'm':
-          numColors = random.choice([1,2])
-          col += [-1] * numColors
+          colorsOnCanvas = random.choice([1,2])
+          col += [-1] * colorsOnCanvas
         else:
-          numColors = random.choice([1,2,3])
-          col += [-1] * numColors
+          colorsOnCanvas = random.choice([1,2,3])
+          col += [-1] * colorsOnCanvas
 
   # >>>> Phase 3 of algorithm: switch out the random colors. 
   for row in canvas:
     for c in row:
-      fillRandomEntries(c)
+      fillRandomEntries(c, numColors)
 
   return canvas 
+
+print(constructLevel(10, 5, 'h', 3))
