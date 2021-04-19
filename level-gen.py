@@ -29,7 +29,7 @@ def prettyprint(c):
     print(r)
 
 def assignSubmatrix(mat1, mat2, i, j):
-  """Assigns submatrix mat2 in mat1, with the TOP LEFT entry of mat2 starting 
+  """Assigns submatrix mat2 in mat1, with the BOTTOM LEFT entry of mat2 starting 
   at entry i,j of mat1. This operation modifies mat1.
 
   Args:
