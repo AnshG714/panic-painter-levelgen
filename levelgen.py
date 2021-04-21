@@ -160,5 +160,3 @@ def constructLevel(numRows, numColumns, difficulty, numColors = 4):
       fillRandomEntries(c, numColors)
 
   return canvas 
-
-print(constructLevel(10, 5, 'h', 3))
