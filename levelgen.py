@@ -108,6 +108,22 @@ def fillRandomEntries(block, numColors):
     if block[i] == -1:
       block[i] = remainingColors.pop()
 
+def transform(l1):
+  l2 = []
+  # iterate over list l1 to the length of an item
+  for i in range(len(l1[0])):
+      # print(i)
+      row =[]
+      for item in l1:
+          # appending to new list with values and index positions
+          # i contains index position and item contains values
+          row.append(item[i])
+      l2.append(row)
+
+  for el in l2:
+    el.reverse()
+  return l2
+
 def constructLevel(numRows, numColumns, difficulty, numColors = 4):
   assert (3 <= numColumns <= 5)
   assert (difficulty in ['e', 'm', 'h'])
@@ -159,4 +175,21 @@ def constructLevel(numRows, numColumns, difficulty, numColors = 4):
     for c in row:
       fillRandomEntries(c, numColors)
 
-  return canvas 
+  return transform(canvas)
+
+q = [
+    [[0, 1], [0], [2, 1], [2, 1]],
+    [[1], [2, 1], [2], [2]],
+    [[2], [1, 2], [1], [2, 1]],
+    [[0], [0], [2], [1, 2]],
+    [[2, 1], [2, 1], [1], [2, 1]],
+    [[2, 0], [2, 0], [2], [1, 2]],
+    [[0], [0], [0], [2]],
+    [[2], [1, 2], [2], [1]],
+    [[2, 1], [2, 1], [1], [2, 1]],
+    [[2], [2], [2], [1, 2]],
+    [[2, 0], [0, 2], [2], [1]],
+    [[1], [2], [2], [0]]
+  ]
+
+print(transform(q))
