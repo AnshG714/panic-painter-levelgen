@@ -49,9 +49,16 @@ if __name__ == "__main__":
 
   colorList = colors[:args.colors]
 
+  if args.difficulty == 'e':
+    bg = "museum-bg"
+  elif args.difficulty == 'm':
+    bg = "city-bg"
+  else:
+    bg = "space-bg"
+
   j = {
     'colors': colorList,
-    'background': 'bg-color2',
+    'background': bg,
     'queues': level,
     "timer": { "levelTime": 160, "canvasBaseTime": 10 },
     "version": 1
