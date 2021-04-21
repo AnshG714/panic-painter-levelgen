@@ -6,7 +6,7 @@
     [115, 216, 255],
     [104, 188, 0]
   ],
-  "background": "bg-color2",
+  "background": "space-bg",
   "queues": [
     [
       [3],

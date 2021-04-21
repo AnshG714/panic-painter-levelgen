@@ -6,7 +6,7 @@
     [250, 40, 255],
     [251, 158, 0]
   ],
-  "background": "bg-color2",
+  "background": "museum-bg",
   "queues": [
     [
       [0],

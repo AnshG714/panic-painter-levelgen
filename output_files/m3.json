@@ -5,7 +5,7 @@
     [250, 40, 255],
     [104, 188, 0]
   ],
-  "background": "bg-color2",
+  "background": "city-bg",
   "queues": [
     [
       [0],
