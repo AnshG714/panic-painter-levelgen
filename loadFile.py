@@ -7,33 +7,38 @@ if __name__ == "__main__":
   parser = argparse.ArgumentParser()
 
   parser.add_argument('-r', '--rows', 
-                      type=int, 
+                      type = int, 
                       help = "Number of rows in the game", 
                       default=10)
 
   parser.add_argument('-c', '--cols', 
-                      type=int, 
+                      type = int, 
                       help = "Number of columns in the game", 
-                      default=5,
-                      choices=[3,4,5])
+                      default = 5,
+                      choices = [3,4,5])
 
   parser.add_argument('-d', '--difficulty',
                       help = "Difficulty of the game (e, m or h)", 
-                      default='e',
-                      choices=['e','m','h'])
+                      default = 'e',
+                      choices = ['e','m','h'])
 
   parser.add_argument('-l', '--colors', 
-                      type=int, 
+                      type = int, 
                       help = "Number of colors in the game", 
-                      default=4,
-                      choices=[3,4,5])
+                      default = 4,
+                      choices = [3,4,5])
 
   parser.add_argument('-i', '--index', 
                       type = int,
                       default = None,
                       help = "The index/uuid of the file. Make sure it's unique, or else it will overwrite some file with the same index")
+
+  parser.add_argument('-o', '--obstacles', 
+                      type=int,
+                      default=0,
+                      help = "The number of obstacles in this level. Make sure this argument is less than the number of rows.")
   args = parser.parse_args()
-  level = constructLevel(args.rows, args.cols, args.difficulty, args.colors)
+  level = constructLevel(args.rows, args.cols, args.difficulty, args.obstacles, args.colors)
 
   colors = [
     [244, 78, 59],
@@ -43,7 +48,8 @@ if __name__ == "__main__":
     [250, 40, 255]
   ]
 
-  assert args.index, 'Please provide an index with -i'
+  assert args.index is not None, 'Please provide an index with -i'
+  assert args.obstacles <= args.rows, 'Make sure the number of obstacles is less than or equal to the number of rows.'
 
   random.shuffle(colors)
 

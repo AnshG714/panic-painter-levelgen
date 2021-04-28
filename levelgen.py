@@ -124,7 +124,10 @@ def transform(l1):
     el.reverse()
   return l2
 
-def constructLevel(numRows, numColumns, difficulty, numColors = 4):
+def constructLevel(numRows, numColumns, difficulty, numObstacles, numColors = 4):
+
+  # note - a canvas with [10] is an obstacle!
+
   assert (3 <= numColumns <= 5)
   assert (difficulty in ['e', 'm', 'h'])
 
@@ -174,6 +177,13 @@ def constructLevel(numRows, numColumns, difficulty, numColors = 4):
   for row in canvas:
     for c in row:
       fillRandomEntries(c, numColors)
+
+  # >>>> Phase 4 of algorithm: switch out components for obstacles.
+  obstacleRows = random.sample(range(numRows), numObstacles)
+  obstacleColumns = random.choices(range(numColumns), k=numObstacles)
+  obstaclesCoords = zip(obstacleRows, obstacleColumns)
+  for x, y in obstaclesCoords:
+    canvas[x][y] = [10]
 
   return transform(canvas)
 
