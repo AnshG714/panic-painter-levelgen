@@ -124,12 +124,19 @@ def transform(l1):
     el.reverse()
   return l2
 
-def constructLevel(numRows, numColumns, difficulty, numObstacles, numColors = 4):
+def constructLevel(numRows, 
+                  numColumns, 
+                  difficulty, 
+                  numObstacles, 
+                  numHealthPortions = 0,
+                  numBeachBalls = 0,
+                  numColors = 4):
 
   # note - a canvas with [10] is an obstacle!
 
   assert (3 <= numColumns <= 5)
   assert (difficulty in ['e', 'm', 'h'])
+  assert numBeachBalls + numHealthPortions <= numRows, "The sum of beach balls and health portions cannot exceed the number of rows since beach balls and health portions cannot be in the same row."
 
   canvas = [[[] for _ in range(numColumns)] for _ in range(numRows)]
   currRow = numRows - 1
@@ -179,11 +186,38 @@ def constructLevel(numRows, numColumns, difficulty, numObstacles, numColors = 4)
       fillRandomEntries(c, numColors)
 
   # >>>> Phase 4 of algorithm: switch out components for bombs, health portions and beach balls.
+
+  # obstacle: ending with a 10
+  # beach ball: 11
+  # health portion: 12
   obstacleRows = random.sample(range(numRows), numObstacles)
   obstacleColumns = random.choices(range(numColumns), k=numObstacles)
   obstaclesCoords = zip(obstacleRows, obstacleColumns)
   for x, y in obstaclesCoords:
-    canvas[x][y].append(10)
+    canvas[x][y] = canvas[x][y][:] + [10] # this is funky but needed because of weird array memory references.
 
+  # Note that we can guarantee a spot for health portions/beach balls 
+  beachBallRows = random.sample(range(numRows), numBeachBalls)
+  portionRowSet = set(range(1, numRows)).difference(set(beachBallRows))
+  portionRows = random.sample(portionRowSet, numHealthPortions)
+
+  for r in beachBallRows:
+    possibleCols = []
+    for c in range(numColumns):
+      if canvas[r][c][-1] != 10:
+        possibleCols.append(c)
+
+    chosenCol = random.choice(possibleCols)
+    canvas[r][chosenCol] = [11]
+
+
+  for r in portionRows:
+    possibleCols = []
+    for c in range(numColumns):
+      if canvas[r][c][-1] != 10:
+        possibleCols.append(c)
+
+    chosenCol = random.choice(possibleCols)
+    canvas[r][chosenCol] = [12]
+    
   return transform(canvas)
-
