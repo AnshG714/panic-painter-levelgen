@@ -178,12 +178,12 @@ def constructLevel(numRows, numColumns, difficulty, numObstacles, numColors = 4)
     for c in row:
       fillRandomEntries(c, numColors)
 
-  # >>>> Phase 4 of algorithm: switch out components for obstacles.
+  # >>>> Phase 4 of algorithm: switch out components for bombs, health portions and beach balls.
   obstacleRows = random.sample(range(numRows), numObstacles)
   obstacleColumns = random.choices(range(numColumns), k=numObstacles)
   obstaclesCoords = zip(obstacleRows, obstacleColumns)
   for x, y in obstaclesCoords:
-    canvas[x][y] = [10]
+    canvas[x][y].append(10)
 
   return transform(canvas)
 
