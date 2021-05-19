@@ -128,8 +128,8 @@ def constructLevel(numRows,
                   numColumns, 
                   difficulty, 
                   numObstacles, 
-                  numHealthPortions = 0,
-                  numBeachBalls = 0,
+                  numHealthPortions,
+                  numBeachBalls,
                   numColors = 4):
 
   # note - a canvas with [10] is an obstacle!
@@ -219,5 +219,5 @@ def constructLevel(numRows,
 
     chosenCol = random.choice(possibleCols)
     canvas[r][chosenCol] = [12]
-    
+
   return transform(canvas)

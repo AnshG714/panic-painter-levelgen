@@ -37,8 +37,25 @@ if __name__ == "__main__":
                       type=int,
                       default=0,
                       help = "The number of obstacles in this level. Make sure this argument is less than the number of rows.")
+
+  parser.add_argument('-b', '--beachballs', 
+                      type=int,
+                      default=0,
+                      help = "The number of beach balls in this level. Make sure this argument is less than the number of rows.")
+
+  parser.add_argument('-p', '--portions', 
+                      type=int,
+                      default=0,
+                      help = "The number of health portions in this level. Make sure this argument is less than the number of rows.")
+                      
   args = parser.parse_args()
-  level = constructLevel(args.rows, args.cols, args.difficulty, args.obstacles, args.colors)
+  level = constructLevel(args.rows, 
+                         args.cols, 
+                         args.difficulty, 
+                         args.obstacles, 
+                         args.portions,
+                         args.beachballs, 
+                         args.colors)
 
   colors = [
     [244, 78, 59],
