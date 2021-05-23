@@ -58,17 +58,15 @@ if __name__ == "__main__":
                          args.colors)
 
   colors = [
-    [244, 78, 59],
-    [251, 158, 0],
-    [104, 188, 0],
-    [115, 216, 255],
-    [250, 40, 255]
+    [244, 78, 59], 
+    [251, 158, 0], 
+    [250, 40, 255], 
+    [104, 188, 0], 
+    [115, 216, 255]
   ]
 
   assert args.index is not None, 'Please provide an index with -i'
   assert args.obstacles <= args.rows, 'Make sure the number of obstacles is less than or equal to the number of rows.'
-
-  random.shuffle(colors)
 
   colorList = colors[:args.colors]
 
