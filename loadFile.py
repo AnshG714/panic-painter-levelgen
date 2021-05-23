@@ -85,7 +85,7 @@ if __name__ == "__main__":
     "version": 1
   }
 
-  with open('output_files/' + args.difficulty + str(args.index) + '.json', 'w') as w:
+  with open('output_files_2.0/' + args.difficulty + str(args.index) + '.json', 'w') as w:
     json.dump(j, w)
                     
 

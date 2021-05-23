@@ -25,7 +25,7 @@ In this directory, you should run `python loadFile.py` **with the relevant flags
   - _The number of beach balls must be less than or equal to the number of rows, and the sum of the portions and the beach balls must ALSO be less than the number of rows._
   - Default: 0.
   - **Note**: in the output file, a beach ball is depicted as a canvas == `[11]`
-- `-p` or `--portions`: Specify the number of health portions in the level.
+- `-p` or `--potions`: Specify the number of health portions in the level.
   - _The number of portions must be less than or equal to the number of rows, and the sum of the portions and the beach balls must ALSO be less than the number of rows._
   - Default: 0.
   - **Note**: in the output file, a portion is depicted as a canvas == `[12]`
